@@ -35,7 +35,7 @@ class AdmDemoRemoveCommand extends Command
 
         $this->call('cache:clear');
         Post::query()->where('type', 'demo')->forceDelete();
-        Category::query()->where('type', 'demo')->forceDelete();
+        Category::query()->where('post_type', 'demo')->forceDelete();
         Tag::query()->where('type', 'demo')->forceDelete();
         $this->info("-- data added to db");
         $this->call('optimize:clear');

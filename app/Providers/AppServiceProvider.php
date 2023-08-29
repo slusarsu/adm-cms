@@ -27,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
             TextInput::make('custom_fields.author')
                 ->label(trans('dashboard.author'))
                 ->columnSpan('full'),
+
+            TextInput::make('custom_fields.title')
+                ->label(trans('dashboard.title'))
+                ->columnSpan('full'),
         ]);
 
 

@@ -62,7 +62,7 @@
         <div>
             @if(!empty($post->custom_fields))
 
-                <img loading="lazy" decoding="async" src="{{admImageLink($post->custom_fields['thumb'])}}" alt="{{$post->title}}" class="w-100">
+{{--                <img loading="lazy" decoding="async" src="{{admImageLink($post->custom_fields['thumb'])}}" alt="{{$post->title}}" class="w-100">--}}
                 <p>
                     {{$post->custom_fields['description']}}
                 </p>

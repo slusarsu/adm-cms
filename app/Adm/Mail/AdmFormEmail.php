@@ -4,6 +4,7 @@ namespace App\Adm\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -28,8 +29,11 @@ class AdmFormEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-//            from: new Address(env('MAIL_FROM_ADDRESS'), env('MAIL_USERNAME')),
-            subject: 'Adm Form Email',
+            from: new Address(env('MAIL_FROM_ADDRESS'), siteSetting()->get('name') ?? env('MAIL_USERNAME')),
+            to: $this->data['form']['to'] ?? siteSetting()->get('name') ?? env('MAIL_FROM_ADDRESS'),
+            cc: explode(',', $this->data['form']['cc']) ?? [],
+            bcc: explode(',', $this->data['form']['bcc']) ?? [],
+            subject: $this->data['form']['subject']
         );
     }
 

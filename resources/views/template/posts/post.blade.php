@@ -27,9 +27,7 @@
         <a href="{{$post->link()}}">{{$post->title}}</a>
     </div>
     <article>
-        @if(!empty($thumb) || !empty($site['showRandomImages']))
-            <img loading="lazy" decoding="async" src="{{$thumb ?? admRandomImage()}}" alt="{{$post->title}}" class="w-100">
-        @endif
+        <img loading="lazy" decoding="async" src="{{$thumb ?? asset('images/no-image.png')}}" alt="{{$post->title}}" class="w-100">
 
         <div class="d-flex justify-content-between mt-3">
             <div>

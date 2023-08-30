@@ -66,6 +66,20 @@ class AdmFormResource extends Resource
                             ->required()
                             ->unique(self::getModel(), 'slug', ignoreRecord: true),
 
+                        TextInput::make('to')
+                            ->label(trans('dashboard.to')),
+
+                        TextInput::make('subject')
+                            ->label(trans('dashboard.subject')),
+
+                        TextInput::make('cc')
+                            ->label(trans('dashboard.cc'))
+                            ->helperText(trans('dashboard.cc_description')),
+
+                        TextInput::make('bcc')
+                            ->label(trans('dashboard.bcc'))
+                            ->helperText(trans('dashboard.bcc_description')),
+
 
                     ])->collapsible(),
 

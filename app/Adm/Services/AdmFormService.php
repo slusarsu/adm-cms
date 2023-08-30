@@ -16,7 +16,12 @@ class AdmFormService
     {
         $email = siteSetting()->get('email') ?? env('MAIL_FROM_ADDRESS');
         try {
-            Mail::to($email)->send(new AdmFormEmail($item->payload));
+            $mailData = [
+                'form' => $item->admForm->toArray(),
+                'payload' => $item->payload,
+            ];
+
+            Mail::to($email)->send(new AdmFormEmail($mailData));
             $status = AdmMailStatusEnum::SENT->value;
         }catch (\Exception $e) {
             Log::error($e->getMessage());

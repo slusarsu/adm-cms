@@ -58,7 +58,28 @@ use \Illuminate\Contracts\Support\Htmlable;
 
         $this->valueStore = siteSetting();
 
-        $this->parameters = config('adm.setting_parameters');
+        $this->parameters = [
+            'name' => '',
+            'author' => '',
+            'seoTitle' => '',
+            'seoKeyWords' => '',
+            'seoDescription' => '',
+            'isEnabled' => '',
+            'paginationCount' => 10,
+            'googleTagManager' => '',
+            'metaPixelCode' => '',
+            'customHeaderCode' => '',
+            'customFooterCode' => '',
+            'customCss' => '',
+            'logo' => '',
+            'footerLogo' => '',
+            'email' => '',
+            'copyright' => '',
+            'isTextLogo' => '',
+            'default_language' => '',
+            'translation_enabled' => '',
+            'values' => '',
+        ];
     }
 
     public function mount(): void
@@ -149,10 +170,6 @@ use \Illuminate\Contracts\Support\Htmlable;
 
                             Toggle::make('translation_enabled')
                                 ->label(trans('dashboard.translation_enabled'))
-                                ->default(true),
-
-                            Toggle::make('showRandomImages')
-                                ->label(trans('dashboard.show_random_images'))
                                 ->default(true),
                         ]),
                     Tab::make(trans('dashboard.customization'))

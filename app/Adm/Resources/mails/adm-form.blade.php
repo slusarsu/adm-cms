@@ -28,7 +28,7 @@
             <th>Field</th>
             <th>Value</th>
         </tr>
-        @foreach($data as $key => $item)
+        @foreach($data['payload'] as $key => $item)
             <tr>
                 <td>{{$key}}</td>
                 <td>{{$item}}</td>

@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
+            $table->string('to')->nullable();
+            $table->string('subject')->nullable();
+            $table->text('cc')->nullable();
+            $table->text('bcc')->nullable();
             $table->string('link_hash')->unique();
             $table->boolean('is_enabled')->default(true);
             $table->boolean('send_notify')->default(false);

@@ -22,10 +22,6 @@ class AdmService
 
     public static function imageRandom(): string
     {
-        if(!siteSetting()->get('showRandomImages')) {
-            return '';
-        }
-
         $images = Storage::disk('asset')->allFiles('images/random');
         $rand = rand(1,count($images))-1 ?? 0;
         return '/'.$images[$rand] ?? '';

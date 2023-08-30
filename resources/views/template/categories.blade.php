@@ -22,7 +22,7 @@
                     <article class="card article-card article-card-sm h-100">
                         <a href="{{$category->link()}}">
                             <div class="card-image">
-                                <img loading="lazy" decoding="async" src="{{$category->thumb() ?? admRandomImage()}}" alt="{{$category->title}}" class="w-100">
+                                <img loading="lazy" decoding="async" src="{{$category->thumb() ?? asset('images/no-image.png')}}" alt="{{$category->title}}" class="w-100">
                             </div>
                         </a>
                         <div class="card-body px-0 pb-0">

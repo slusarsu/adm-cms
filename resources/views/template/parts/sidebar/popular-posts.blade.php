@@ -14,9 +14,8 @@
                             </div>
 
 
-                            @if(!empty($post->thumb()) || !empty($site['showRandomImages']))
-                                <img loading="lazy" decoding="async" src="{{$post->thumb() ?? admRandomImage()}}" alt="{{$post->title}}" class="w-100">
-                            @endif
+                            <img loading="lazy" decoding="async" src="{{$post->thumb() ?? asset('images/no-image.png')}}" alt="{{$post->title}}" class="w-100">
+
 
                         </div>
 
@@ -33,9 +32,7 @@
                 @endif
 
                 <a class="media align-items-center" href="{{$post->link()}}" id="popular-post-{{$post->id}}">
-                    @if(!empty($post->thumb()) || !empty($site['showRandomImages']))
-                        <img loading="lazy" decoding="async" src="{{$post->thumb() ?? admRandomImage()}}" alt="{{$post->title}}" class="w-100">
-                    @endif
+                    <img loading="lazy" decoding="async" src="{{$post->thumb() ?? asset('images/no-image.png')}}" alt="{{$post->title}}" class="w-100">
 
                     <div class="media-body ml-3">
                         <h3 style="margin-top:-5px">{{$post->title}}</h3>

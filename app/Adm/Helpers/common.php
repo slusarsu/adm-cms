@@ -66,7 +66,7 @@ function getPopularPosts(?int $paginationCount = 5, ?string $categorySlug = '') 
     return PostService::popularPosts($paginationCount, $categorySlug);
 }
 
-function AdmRandomImage(): string
+function admRandomImage(): string
 {
     return AdmService::imageRandom();
 }

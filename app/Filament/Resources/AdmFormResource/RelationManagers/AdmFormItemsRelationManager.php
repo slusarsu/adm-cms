@@ -4,6 +4,7 @@ namespace App\Filament\Resources\AdmFormResource\RelationManagers;
 
 use App\Adm\Enums\AdmMailStatusEnum;
 use App\Adm\Services\AdmFormService;
+use Filament\Notifications\Notification;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
@@ -69,7 +70,13 @@ class AdmFormItemsRelationManager extends RelationManager
                 Tables\Actions\ViewAction::make(),
 
                 Action::make('Send')
-                    ->action(fn ($record) => AdmFormService::sendEmailForItem($record))
+                    ->action(function ($record) {
+                        AdmFormService::sendEmailForItem($record);
+                        Notification::make()->title('Sent')
+                            ->success()
+                            ->icon('heroicon-o-bell')
+                            ->send();
+                    } )
                     ->icon('heroicon-s-paper-airplane')
                     ->requiresConfirmation(),
 

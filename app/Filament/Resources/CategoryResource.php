@@ -24,6 +24,8 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
@@ -93,6 +95,7 @@ class CategoryResource extends Resource
                                     if($record) {
                                         return Category::query()
                                             ->where('content_type', static::$contentType)
+                                            ->where('post_type', $record->post_type)
                                             ->whereNot('id', $record->id)
                                             ->pluck('title', 'id');
                                     }
@@ -176,6 +179,9 @@ class CategoryResource extends Resource
                 TextColumn::make('slug')
                     ->label(trans('dashboard.slug')),
 
+                TextColumn::make('post_type')
+                    ->label(trans('dashboard.post_type')),
+
                 TextColumn::make('locale')
                     ->label(trans('dashboard.locale')),
 
@@ -197,7 +203,14 @@ class CategoryResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('post_type')
+                    ->label(trans('dashboard.post_type'))
+                    ->options(config('adm.post_types')),
+
+                Filter::make('only_enabled')
+                    ->label(trans('dashboard.only_enabled'))
+                    ->query(fn (Builder $query): Builder => $query->where('is_enabled', true))
+                    ->toggle()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

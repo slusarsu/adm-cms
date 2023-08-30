@@ -21,9 +21,7 @@
                                     </span>
                                 </div>
 
-                                @if(!empty($post->thumb()) || !empty($site['showRandomImages']))
-                                    <img loading="lazy" decoding="async" src="{{$post->thumb() ?? admRandomImage()}}" alt="{{$post->title}}" class="w-100">
-                                @endif
+                                <img loading="lazy" decoding="async" src="{{$post->thumb() ?? asset('images/no-image.png')}}" alt="{{$post->title}}" class="w-100">
 
                             </div>
                         </a>
@@ -60,6 +58,7 @@
 
                 <div class="col-md-6 mb-4" id="post-{{$post->id}}">
                     <article class="card article-card article-card-sm h-100">
+
                         <a href="{{$post->link()}}">
                             <div class="card-image">
                                 <div class="post-info">
@@ -73,12 +72,11 @@
                                     </span>
                                 </div>
 
-                                @if(!empty($post->thumb()) || !empty($site['showRandomImages']))
-                                    <img loading="lazy" decoding="async" src="{{$post->thumb() ?? admRandomImage()}}" alt="{{$post->title}}" class="w-100">
-                                @endif
+                                <img loading="lazy" decoding="async" src="{{$post->thumb() ?? asset('images/no-image.png')}}" alt="{{$post->title}}" class="w-100">
 
                             </div>
                         </a>
+
                         <div class="card-body px-0 pb-0">
                             <ul class="post-meta mb-2" title="categories">
                                 <li>
@@ -97,6 +95,7 @@
                                 </li>
                             </ul>
                         </div>
+
                     </article>
                 </div>
 
@@ -105,12 +104,12 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12">
-{{--                    {!! !empty($posts->links()) ? $posts->links() : '' !!}--}}
                     @if(method_exists($posts, 'links'))
                         {!! $posts->appends(Request::except('page'))->render() !!}
                     @endif
                 </div>
             </div>
         </div>
+
     </div>
 @endif

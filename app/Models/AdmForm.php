@@ -13,6 +13,10 @@ class AdmForm extends Model
     protected $fillable = [
         'title',
         'slug',
+        'to',
+        'subject',
+        'cc',
+        'bcc',
         'is_enabled',
         'send_notify',
         'fields',

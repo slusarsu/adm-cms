@@ -43,7 +43,10 @@ class PostResource extends Resource
     protected static ?string $navigationGroup = 'Content';
 
     protected static ?string $navigationIcon = 'heroicon-o-document';
+
     protected static ?int $navigationSort = 0;
+
+    protected static ?string $contentType = 'post';
 
     protected static function getNavigationLabel(): string
     {
@@ -162,17 +165,31 @@ class PostResource extends Resource
                                         ->unique(Category::class, 'slug', ignoreRecord: true)
                                         ->reactive(),
 
-                                    Select::make('parent_id')
-                                        ->label(trans('dashboard.parent'))
-                                        ->options(Category::query()->pluck('title', 'id')),
-
                                     Select::make('post_type')
                                         ->label(trans('dashboard.type'))
                                         ->options(function() {
                                             return config('adm.post_types');
                                         })
                                         ->default('text')
+                                        ->reactive()
                                         ->searchable(),
+
+                                    Select::make('parent_id')
+                                        ->label(trans('dashboard.parent'))
+                                        ->options(function(callable $get) {
+                                            if($get('post_type')) {
+                                                return Category::query()
+                                                    ->where('content_type', static::$contentType)
+                                                    ->where('post_type', $get('post_type'))
+                                                    ->pluck('title', 'id');
+                                            }
+                                            return Category::query()
+                                                ->where('content_type', static::$contentType)
+                                                ->pluck('title', 'id');
+                                        })
+                                        ->searchable(),
+
+
 
                                     TextInput::make('content_type')
                                         ->required()
@@ -248,11 +265,16 @@ class PostResource extends Resource
 
                 TextColumn::make('title')
                     ->label(trans('dashboard.title'))
+                    ->limit(50)
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('slug')
+                    ->limit(50)
                     ->label(trans('dashboard.slug')),
+
+                TextColumn::make('type')
+                    ->label(trans('dashboard.type')),
 
                 TextColumn::make('locale')
                     ->label(trans('dashboard.locale')),

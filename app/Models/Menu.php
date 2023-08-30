@@ -28,6 +28,12 @@ class Menu extends Model
             ->where('created_at', '<=',Carbon::now());
     }
 
+    public function scopeLocale(Builder $query): void
+    {
+        $query->where('locale', null)
+            ->orWhere('locale', app()->getLocale());
+    }
+
     public function scopeLang(Builder $query): void
     {
         $query->where('locale', app()->getLocale());

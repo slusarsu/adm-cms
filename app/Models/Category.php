@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Adm\Traits\ModelHasAdmTranslation;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 class Category extends Model
 {
     use HasFactory;
+    use ModelHasAdmTranslation;
 
     protected $fillable = [
         'parent_id',
@@ -37,6 +39,18 @@ class Category extends Model
         'is_enabled' => 'boolean',
     ];
 
+    public function scopeLocale(Builder $query): void
+    {
+        $query->where('locale', null)
+            ->orWhere('locale', app()->getLocale());
+    }
+
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('is_enabled', true)
+            ->where('created_at', '<=',Carbon::now());
+    }
+
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');
@@ -50,17 +64,6 @@ class Category extends Model
     public function posts(): MorphToMany
     {
         return $this->morphedByMany(Post::class, 'categorize');
-    }
-
-    public function scopeActive(Builder $query): void
-    {
-        $query->where('is_enabled', true)
-            ->where('created_at', '<=',Carbon::now());
-    }
-
-    public function scopeLang(Builder $query): void
-    {
-        $query->where('locale', app()->getLocale());
     }
 
     public static function tree()

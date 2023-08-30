@@ -43,18 +43,34 @@
                         </li>
                     @endforeach
                 </ul>
+{{--                <div class="dropdown">--}}
+{{--                    <a class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">--}}
+{{--                        {{app()->getLocale()}}--}}
+{{--                    </a>--}}
+{{--                    <div class="dropdown-menu">--}}
+{{--                        @foreach(admLanguages() as $key => $item)--}}
+{{--                            <a class="dropdown-item" href="{{route('switch-locale', $key)}}">{{$item}}</a>--}}
+{{--                        @endforeach--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
                 <div class="dropdown">
                     <a class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                         {{app()->getLocale()}}
                     </a>
                     <div class="dropdown-menu">
                         @foreach(admLanguages() as $key => $item)
-                            <a class="dropdown-item" href="{{route('switch-locale', $key)}}">{{$item}}</a>
+                            @if($key == app()->getLocale())
+                                @continue(1)
+                            @endif
+                            <a class="dropdown-item" href="{{route('locale-switcher', admLocaleSwitcherParams($key))}}">{{$item}}</a>
                         @endforeach
                     </div>
                 </div>
+
             </div>
 
         </nav>
     </div>
+
 </header>

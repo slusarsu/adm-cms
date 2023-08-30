@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Adm\Actions\ActionAdmTranslationMapper;
 use App\Adm\Services\PageService;
 use App\Filament\Resources\PageResource\Pages;
 use App\Filament\Resources\PageResource\Widgets\PageStatsOverview;
@@ -209,13 +210,19 @@ class PageResource extends Resource
                                 ->default('page')
                                 ->required(),
 
+                            Select::make('locale')
+                                ->label(trans('dashboard.locale'))
+                                ->options(admLanguages())
+                                ->default(admDefaultLanguage()),
+
                             DateTimePicker::make('created_at')
                                 ->label(trans('dashboard.created'))
                                 ->default(Carbon::now()),
 
                             Toggle::make('is_enabled')
                                 ->label(trans('dashboard.enabled'))
-                                ->default(true)
+                                ->default(true),
+
                         ])->collapsible(),
 
                 ])->columnSpan(1),
@@ -243,6 +250,10 @@ class PageResource extends Resource
                 TextColumn::make('locale')
                     ->label(trans('dashboard.locale')),
 
+                TextColumn::make('locales')
+                    ->label(trans('dashboard.translations'))
+                    ->description(fn ($record): string => $record->getTranslationLocales(), position: 'above'),
+
                 IconColumn::make('is_enabled')
                     ->label(trans('dashboard.enabled'))
                     ->boolean(),
@@ -264,6 +275,7 @@ class PageResource extends Resource
                     ->toggle()
             ])
             ->actions([
+                ActionAdmTranslationMapper::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),

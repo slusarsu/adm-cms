@@ -64,6 +64,11 @@ class MenuResource extends Resource
                             config('adm.menu_positions')
                         ),
 
+                    Select::make('locale')
+                        ->label(trans('dashboard.locale'))
+                        ->options(admLanguages())
+                        ->default(admDefaultLanguage()),
+
                     Toggle::make('is_enabled')
                         ->label(trans('dashboard.enabled'))
                         ->default(true)

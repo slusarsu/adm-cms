@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Adm\Actions\ActionAdmTranslationMapper;
 use App\Adm\Services\CustomFieldService;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\Widgets\PostStatsOverview;
@@ -189,7 +190,10 @@ class PostResource extends Resource
                                         })
                                         ->searchable(),
 
-
+                                    Select::make('locale')
+                                        ->label(trans('dashboard.locale'))
+                                        ->options(admLanguages())
+                                        ->default(admDefaultLanguage()),
 
                                     TextInput::make('content_type')
                                         ->required()
@@ -279,6 +283,10 @@ class PostResource extends Resource
                 TextColumn::make('locale')
                     ->label(trans('dashboard.locale')),
 
+                TextColumn::make('locales')
+                    ->label(trans('dashboard.translations'))
+                    ->description(fn ($record): string => $record->getTranslationLocales(), position: 'above'),
+
                 TagsColumn::make('categories.title')
                     ->label(trans('dashboard.categories'))
                     ->separator(','),
@@ -304,6 +312,7 @@ class PostResource extends Resource
                     ->toggle()
             ])
             ->actions([
+                ActionAdmTranslationMapper::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),

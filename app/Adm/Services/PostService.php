@@ -44,6 +44,7 @@ class PostService
     {
         $post =  Post::query()->where('slug', $slug)
             ->active()
+            ->locale()
             ->with(['categories', 'tags'])
             ->first();
 
@@ -60,6 +61,7 @@ class PostService
         return Post::query()
             ->with(['categories', 'tags'])
             ->active()
+            ->locale()
             ->whereHas('categories', function (Builder $query) use ($slug){
                 $query->where('slug', $slug);
             })
@@ -72,6 +74,7 @@ class PostService
         return Post::query()
             ->with(['categories', 'tags'])
             ->active()
+            ->locale()
             ->whereHas('tags', function (Builder $query) use ($slug){
                 $query->where('slug', $slug);
             })
@@ -81,7 +84,7 @@ class PostService
 
     public static function popularPosts(?int $paginationCount = 5, ?string $categorySlug = '')
     {
-        $post = Post::query()->active();
+        $post = Post::query()->active()->locale();
 
         if(!empty($categorySlug)) {
             $post = $post->whereHas('categories', function (Builder $query) use ($categorySlug){
@@ -96,6 +99,7 @@ class PostService
     {
         return Post::query()
             ->active()
+            ->locale()
             ->where('title', 'like', '%'.$phrase.'%')
             ->orWhere('content', 'like', '%'.$phrase.'%')
             ->orWhere('short', 'like', '%'.$phrase.'%')

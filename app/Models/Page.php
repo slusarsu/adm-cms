@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Adm\Traits\ModelHasAdmTranslation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,7 @@ class Page extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use ModelHasAdmTranslation;
 
     protected $fillable = [
         'user_id',
@@ -48,11 +50,6 @@ class Page extends Model
     {
         $query->where('is_enabled', true)
             ->where('created_at', '<=',Carbon::now());
-    }
-
-    public function scopeLang(Builder $query): void
-    {
-        $query->where('locale', app()->getLocale());
     }
 
     public function customFields(): array

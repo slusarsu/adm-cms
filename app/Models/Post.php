@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Adm\Traits\ModelHasAdmTranslation;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,7 @@ class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use ModelHasAdmTranslation;
 
     protected $fillable = [
         'user_id',
@@ -52,11 +54,6 @@ class Post extends Model
     {
         $query->where('locale', null)
             ->orWhere('locale', app()->getLocale());
-    }
-
-    public function scopeLang(Builder $query): void
-    {
-        $query->where('locale', app()->getLocale());
     }
 
     public function user(): BelongsTo

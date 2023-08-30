@@ -145,6 +145,11 @@ class CategoryResource extends Resource
                                 ->directory('images')
                                 ->image(),
 
+                            Select::make('locale')
+                                ->label(trans('dashboard.locale'))
+                                ->options(admLanguages())
+                                ->default(admDefaultLanguage()),
+
                             DateTimePicker::make('created_at')
                                 ->label(trans('dashboard.created'))
                                 ->default(Carbon::now()),

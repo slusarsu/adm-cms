@@ -24,6 +24,7 @@ Route::get('/', function () {
     return view('template.index');
 })->name('home');
 Route::get('/switch-locale/{locale}', [TranslationController::class, 'changeLocale'])->name('switch-locale');
+Route::get('/locale-switcher', [TranslationController::class, 'localeSwitcher'])->name('locale-switcher');
 Route::post('/adm-form/{link_hash}', [AdmFormController::class, 'form'])->name('adm-form');
 Route::get('/adm-search', [PageController::class, 'search'])->name('adm-search');
 Route::get('/add-comment', [CommentController::class, 'store'])->name('add-comment');

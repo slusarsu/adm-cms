@@ -25,4 +25,10 @@ return [
         'post' => 'Post',
         'product' => 'Product',
     ],
+
+    'route_model' => [
+        'post' => 'App\Models\Post',
+        'page' => 'App\Models\Page',
+        'category' => 'App\Models\Category',
+    ],
 ];

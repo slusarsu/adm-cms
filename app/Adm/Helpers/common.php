@@ -127,3 +127,27 @@ function admImageLink(string $image): string
 {
     return '/storage/'.$image;
 }
+
+function admRouteName(): string
+{
+    return request()->route()->getName() ?? '';
+}
+
+function admJsonRouteParameters(): string
+{
+    return json_encode(request()->route()->parameters()) ?? '';
+}
+
+function admGetSlugFromUrl() {
+    $params = request()->route()->parameters();
+    return $params['slug'] ?? [];
+}
+
+function admLocaleSwitcherParams(string $locale): array
+{
+    return [
+        'name' => admRouteName(),
+        'slug' => admGetSlugFromUrl(),
+        'locale' => $locale,
+    ];
+}

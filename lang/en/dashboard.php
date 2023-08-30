@@ -115,4 +115,5 @@ return [
   'type' => 'Type',
   'url' => 'URL',
   'post_type' => 'Post Type',
+  'translate' => 'Translate',
 ];

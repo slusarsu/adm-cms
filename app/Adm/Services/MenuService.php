@@ -11,6 +11,7 @@ class MenuService
        return Menu::query()
            ->where('slug', $slug)
            ->active()
+           ->locale()
            ->with('menu_items')->first();
     }
 
@@ -19,6 +20,7 @@ class MenuService
         return Menu::query()
             ->where('position', $position)
             ->active()
+            ->locale()
             ->with('menu_items')->first();
     }
 
@@ -27,6 +29,7 @@ class MenuService
         return Menu::query()
             ->where('position', $position)
             ->active()
+            ->locale()
             ->with('menu_items')
             ->get();
     }

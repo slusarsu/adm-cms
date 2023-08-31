@@ -125,7 +125,7 @@ function admGalleryBySlug(string $slug)
 
 function admImageLink(string $image): string
 {
-    return '/storage/'.$image;
+    return '/storage/'.$image ?? '';
 }
 
 function admRouteName(): string

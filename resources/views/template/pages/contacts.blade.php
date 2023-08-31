@@ -83,6 +83,7 @@
                 </div>
             </form>
         </div>
+        <img src="{{$page->getThumb()}}" alt="" >
     </div>
     <script>
         console.log(@json($cf));

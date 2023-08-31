@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "awcodes/filament-curator": "^2.9",
         "bezhansalleh/filament-language-switch": "^1.0",
         "blade-ui-kit/blade-heroicons": "^1.4",
         "creagia/filament-code-field": "^1.0",

@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Adm\Services\CustomFieldService;
-use Awcodes\Curator\Facades\Curator;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -44,7 +43,5 @@ class AppServiceProvider extends ServiceProvider
                 ->label(trans('dashboard.thumb'))
                 ->directory('images')->image(),
         ]);
-
-        Curator::glideDriver('imagick');
     }
 }

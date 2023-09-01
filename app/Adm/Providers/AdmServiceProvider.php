@@ -41,7 +41,7 @@ class AdmServiceProvider extends ServiceProvider
 
         });
 
-        Curator::pathGenerator(DatePathGenerator::class);
+        Curator::pathGenerator(DatePathGenerator::class)->glideDriver('imagick');
 
     }
 }

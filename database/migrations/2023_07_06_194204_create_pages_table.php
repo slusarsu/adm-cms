@@ -19,8 +19,6 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->json('custom_fields')->nullable();
             $table->string('thumb')->nullable();
-            $table->bigInteger('thumb_id')->nullable();
-            $table->json('images_ids')->nullable();
             $table->json('images')->nullable();
             $table->string('template')->nullable();
             $table->boolean('is_enabled')->default(true);

@@ -6,7 +6,6 @@ export default {
     content: [
         './resources/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
-        './vendor/awcodes/filament-curator/resources/**/*.blade.php',
     ],
     darkMode: 'class',
     theme: {

@@ -3,10 +3,6 @@
 namespace App\Models;
 
 use App\Adm\Traits\ModelHasAdmTranslation;
-use Awcodes\Curator\Models\Media;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -30,9 +26,7 @@ class Page extends Model
         'template',
         'custom_fields',
         'thumb',
-        'thumb_id',
         'images',
-        'images_ids',
         'is_enabled',
         'seo_title',
         'seo_text_keys',
@@ -50,16 +44,6 @@ class Page extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function mediaThumb(): BelongsTo
-    {
-        return $this->belongsTo(Media::class, 'thumb_id', 'id');
-    }
-
-    public function medias(): MorphToMany
-    {
-        return $this->MorphToMany(Media::class, 'mediarize')->withPivot('order');
     }
 
     public function scopeActive(Builder $query): void
@@ -114,10 +98,5 @@ class Page extends Model
     public function getDate()
     {
         return $this->created_at->format('d.m.Y H:i');
-    }
-
-    public function getThumb(): string
-    {
-        return admImageLink($this->mediaThumb->path) ?? '';
     }
 }

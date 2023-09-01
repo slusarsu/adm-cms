@@ -7,8 +7,6 @@ use App\Adm\Services\PageService;
 use App\Filament\Resources\PageResource\Pages;
 use App\Filament\Resources\PageResource\Widgets\PageStatsOverview;
 use App\Models\Page;
-use Awcodes\Curator\Components\Forms\CuratorPicker;
-use Awcodes\Curator\Components\Tables\CuratorColumn;
 use Filament\Forms\Components\Builder as FromBuilder;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Card;
@@ -106,16 +104,10 @@ class PageResource extends Resource
                             Tab::make(trans('dashboard.images'))
                                 ->icon('heroicon-o-film')
                                 ->schema([
-//                                    FileUpload::make('images')
-//                                        ->label(trans('dashboard.images'))
-//                                        ->directory('images')->multiple()->image()
-
-                                    CuratorPicker::make('images')
+                                    FileUpload::make('images')
                                         ->label(trans('dashboard.images'))
-                                        ->multiple()
-                                        ->relationship('medias', 'id')
-                                        ->orderColumn('order'),
-                                ]),
+                                        ->directory('images')->multiple()->image()
+                                ])  ,
 
                             Tab::make(trans('dashboard.custom_fields'))
                                 ->icon('heroicon-o-document-text')
@@ -127,8 +119,7 @@ class PageResource extends Resource
                                                 ->schema([
 
                                                     TextInput::make('field_name')
-                                                        ->label(trans('dashboard.field_name'))
-                                                        ->required(),
+                                                        ->label(trans('dashboard.field_name')),
 
                                                     TextInput::make('text')
                                                         ->label(trans('dashboard.text'))
@@ -138,9 +129,7 @@ class PageResource extends Resource
                                             Block::make('paragraph')
                                                 ->schema([
                                                     TextInput::make('field_name')
-                                                        ->label(trans('dashboard.field_name'))
-                                                        ->required(),
-
+                                                        ->label(trans('dashboard.field_name')),
                                                     Textarea::make('content')
                                                         ->label(trans('dashboard.paragraph'))
                                                         ->required(),
@@ -148,8 +137,7 @@ class PageResource extends Resource
                                             Block::make('content')
                                                 ->schema([
                                                     TextInput::make('field_name')
-                                                        ->label(trans('dashboard.field_name'))
-                                                        ->required(),
+                                                        ->label(trans('dashboard.field_name')),
 
                                                     TinyEditor::make('content')
                                                         ->label(trans('dashboard.content'))
@@ -161,17 +149,13 @@ class PageResource extends Resource
                                             Block::make('image')
                                                 ->schema([
                                                     TextInput::make('field_name')
-                                                        ->label(trans('dashboard.field_name'))
+                                                        ->label(trans('dashboard.field_name')),
+
+                                                    FileUpload::make('url')
+                                                        ->label(trans('dashboard.image'))
+                                                        ->directory('images')
+                                                        ->image()
                                                         ->required(),
-
-//                                                    FileUpload::make('url')
-//                                                        ->label(trans('dashboard.image'))
-//                                                        ->directory('images')
-//                                                        ->image()
-//                                                        ->required(),
-
-                                                    CuratorPicker::make('url')
-                                                        ->label(trans('dashboard.image')),
 
                                                     TextInput::make('alt')
                                                         ->label(trans('dashboard.alt_text'))
@@ -180,21 +164,14 @@ class PageResource extends Resource
                                             Block::make('images')
                                                 ->schema([
                                                     TextInput::make('field_name')
-                                                        ->label(trans('dashboard.field_name'))
-                                                        ->required(),
+                                                        ->label(trans('dashboard.field_name')),
 
-                                                    CuratorPicker::make('url')
+                                                    FileUpload::make('url')
                                                         ->label(trans('dashboard.images'))
+                                                        ->directory('images')
                                                         ->multiple()
-                                                        ->relationship('medias', 'id')
-                                                        ->orderColumn('order'),
-
-//                                                    FileUpload::make('url')
-//                                                        ->label(trans('dashboard.images'))
-//                                                        ->directory('images')
-//                                                        ->multiple()
-//                                                        ->image()
-//                                                        ->required(),
+                                                        ->image()
+                                                        ->required(),
                                                 ]),
                                         ])
                                 ]),
@@ -222,14 +199,10 @@ class PageResource extends Resource
 
                     Section::make(trans('dashboard.settings'))
                         ->schema([
-//                            FileUpload::make('thumb')
-//                                ->label(trans('dashboard.thumb'))
-//                                ->directory('images')
-//                                ->image(),
-
-
-                            CuratorPicker::make('thumb_id')
-                                ->relationship('mediaThumb', 'id'),
+                            FileUpload::make('thumb')
+                                ->label(trans('dashboard.thumb'))
+                                ->directory('images')
+                                ->image(),
 
                             Select::make('template')
                                 ->label(trans('dashboard.template'))
@@ -250,8 +223,6 @@ class PageResource extends Resource
                                 ->label(trans('dashboard.enabled'))
                                 ->default(true),
 
-
-
                         ])->collapsible(),
 
                 ])->columnSpan(1),
@@ -265,11 +236,8 @@ class PageResource extends Resource
                 TextColumn::make('id')
                     ->sortable(),
 
-//                ImageColumn::make('thumb')
-//                    ->label(trans('dashboard.thumb')),
-
-                CuratorColumn::make('thumb')
-                    ->size(40),
+                ImageColumn::make('thumb')
+                    ->label(trans('dashboard.thumb')),
 
                 TextColumn::make('title')
                     ->label(trans('dashboard.title'))

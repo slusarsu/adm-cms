@@ -2,8 +2,6 @@
 
 namespace App\Adm\Providers;
 
-use Awcodes\Curator\Facades\Curator;
-use Awcodes\Curator\Generators\DatePathGenerator;
 use Filament\Facades\Filament;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -40,8 +38,6 @@ class AdmServiceProvider extends ServiceProvider
             ]);
 
         });
-
-        Curator::pathGenerator(DatePathGenerator::class);
 
     }
 }

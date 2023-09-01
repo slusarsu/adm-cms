@@ -31,11 +31,7 @@ class PageService
 
     public function getOneBySlug(string $slug): object|null
     {
-        $page = Page::query()
-            ->where('slug', $slug)
-            ->with('mediaThumb')
-            ->active()
-            ->first();
+        $page = Page::query()->where('slug', $slug)->active()->first();
 
         if($page) {
             $page->increment('views');

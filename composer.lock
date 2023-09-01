@@ -77,16 +77,16 @@
         },
         {
             "name": "awcodes/filament-curator",
-            "version": "v2.9.1",
+            "version": "v2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/awcodes/filament-curator.git",
-                "reference": "c112079b1a05fe17cd47580e4848e29a7c402579"
+                "reference": "3feef33c4505b0b1b0276c723c6ab7fba2e99df9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/awcodes/filament-curator/zipball/c112079b1a05fe17cd47580e4848e29a7c402579",
-                "reference": "c112079b1a05fe17cd47580e4848e29a7c402579",
+                "url": "https://api.github.com/repos/awcodes/filament-curator/zipball/3feef33c4505b0b1b0276c723c6ab7fba2e99df9",
+                "reference": "3feef33c4505b0b1b0276c723c6ab7fba2e99df9",
                 "shasum": ""
             },
             "require": {
@@ -153,7 +153,7 @@
             ],
             "support": {
                 "issues": "https://github.com/awcodes/filament-curator/issues",
-                "source": "https://github.com/awcodes/filament-curator/tree/v2.9.1"
+                "source": "https://github.com/awcodes/filament-curator/tree/v2.10.0"
             },
             "funding": [
                 {
@@ -161,7 +161,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-23T13:08:21+00:00"
+            "time": "2023-08-31T20:31:51+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",

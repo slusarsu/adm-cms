@@ -116,4 +116,7 @@ return [
   'url' => 'URL',
   'post_type' => 'Post Type',
   'translate' => 'Translate',
+    'sent' => 'Sent',
+    'not_sent' => 'Not Sent',
+    'error_sent' => 'Error Sent',
 ];

@@ -4,6 +4,7 @@ namespace App\Filament\Resources\AdmFormResource\RelationManagers;
 
 use App\Adm\Enums\AdmMailStatusEnum;
 use App\Adm\Services\AdmFormService;
+use Filament\Forms\Components\KeyValue;
 use Filament\Notifications\Notification;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -29,6 +30,9 @@ class AdmFormItemsRelationManager extends RelationManager
     {
         return $form
             ->schema([
+//                KeyValue::make('payload')
+//                    ->disableLabel()
+//                    ->columnSpanFull(),
                 PrettyJson::make('payload')
                     ->label(trans('dashboard.payload'))
                     ->columnSpanFull(),

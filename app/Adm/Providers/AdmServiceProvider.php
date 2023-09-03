@@ -33,6 +33,7 @@ class AdmServiceProvider extends ServiceProvider
             Filament::registerNavigationGroups([
                 'Content',
                 'Tools',
+                'Shop',
                 'Authentication',
                 'System',
             ]);

@@ -25,6 +25,11 @@ class ShopCategory extends Model
         'seo_text_keys',
         'seo_description',
         'parent_id',
+        'order',
+    ];
+
+    protected $casts = [
+        'is_enabled' => 'boolean'
     ];
 
     public function parent(): BelongsTo

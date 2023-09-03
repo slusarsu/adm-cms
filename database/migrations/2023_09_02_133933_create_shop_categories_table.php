@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('seo_title')->nullable();
             $table->string('seo_text_keys')->nullable();
             $table->string('seo_description')->nullable();
+            $table->integer('order')->default(0);
             $table->foreignId('parent_id')
                 ->nullable()
                 ->references('id')

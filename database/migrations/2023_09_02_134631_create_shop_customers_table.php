@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('shop_customers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->text('address_line1')->nullable();
-            $table->text('address_line2')->nullable();
+            $table->foreignId('user_id')->unique()->constrained();
+            $table->text('address_line_1')->nullable();
+            $table->text('address_line_2')->nullable();
             $table->integer('country_id')->nullable();
             $table->string('city')->nullable();
             $table->string('postal_code')->nullable();

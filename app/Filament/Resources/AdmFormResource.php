@@ -49,7 +49,7 @@ class AdmFormResource extends Resource
     }
 
     public static function form(Form $form): Form
-    {//                TextInput::make('id')->disabled()->columnSpanFull(),
+    {
         return $form
             ->schema([
                 Group::make()->schema([

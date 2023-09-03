@@ -31,6 +31,10 @@ class ShopProduct extends Model
         'shop_discount_id',
     ];
 
+    protected $casts = [
+        'is_enabled' => 'boolean'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

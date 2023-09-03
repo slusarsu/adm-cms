@@ -19,6 +19,10 @@ class ShopDiscount extends Model
         'amount',
     ];
 
+    protected $casts = [
+        'is_enabled' => 'boolean'
+    ];
+
     public function shopProducts(): HasMany
     {
         return $this->hasMany(ShopProduct::class);

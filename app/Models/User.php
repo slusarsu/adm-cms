@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Adm\Enums\RoleEnum;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -49,6 +50,26 @@ class User extends Authenticatable
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function shopCustomer(): HasOne
+    {
+        return $this->hasOne(ShopCustomer::class);
+    }
+
+    public function shopOrders(): HasMany
+    {
+        return $this->hasMany(ShopOrder::class);
+    }
+
+    public function shopProducts(): HasMany
+    {
+        return $this->hasMany(ShopProduct::class);
+    }
+
+    public function shopSessions(): HasMany
+    {
+        return $this->hasMany(ShopSession::class);
     }
 
     public function isAdmin(): bool

@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shop_discounts', function (Blueprint $table) {
+        Schema::create('currencies', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('content')->nullable();
-            $table->boolean('is_enabled')->default(true);
-            $table->decimal('amount', 10, 2)->nullable();
-            $table->boolean('is_percent')->default(false);
+            $table->string('code', 3)->unique(); // Currency code (e.g., USD)
+            $table->string('name'); // Currency name (e.g., United States Dollar)
+            $table->string('symbol')->nullable(); // Currency symbol (e.g., $)
+            $table->boolean('is_enabled')->default(false);
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shop_discounts');
+        Schema::dropIfExists('currencies');
     }
 };

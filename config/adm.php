@@ -23,7 +23,6 @@ return [
 
     'content_types' => [
         'post' => 'Post',
-        'product' => 'Product',
     ],
 
     'route_model' => [

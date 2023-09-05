@@ -43,5 +43,11 @@ class AppServiceProvider extends ServiceProvider
                 ->label(trans('dashboard.thumb'))
                 ->directory('images')->image(),
         ]);
+
+        CustomFieldService::setCustomFields('shop_product_fields', [
+            Textarea::make('custom_fields.description')
+                ->label(trans('dashboard.description'))
+                ->columnSpan('full'),
+        ]);
     }
 }

@@ -8,22 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
-class ShopDiscount extends Model
+class Currency extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'slug',
-        'content',
+        'code',
+        'name',
+        'symbol',
         'is_enabled',
-        'is_percent',
-        'amount',
     ];
 
     protected $casts = [
         'is_enabled' => 'boolean',
-        'is_percent' => 'boolean'
     ];
 
     public function scopeActive(Builder $query): void
@@ -32,8 +29,9 @@ class ShopDiscount extends Model
             ->where('created_at', '<=',Carbon::now());
     }
 
-    public function shopProducts(): HasMany
+    public function products(): HasMany
     {
         return $this->hasMany(ShopProduct::class);
     }
+
 }

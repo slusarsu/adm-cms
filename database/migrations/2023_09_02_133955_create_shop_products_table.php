@@ -22,18 +22,20 @@ return new class extends Migration
             $table->json('images')->nullable();
             $table->boolean('is_enabled')->default(true);
             $table->bigInteger('views')->nullable();
+            $table->json('custom_fields')->nullable();
             $table->string('locale')->nullable();
             $table->string('seo_title')->nullable();
             $table->string('seo_text_keys')->nullable();
             $table->string('seo_description')->nullable();
             $table->decimal('price', 10, 2)->nullable();
-            $table->integer('quantity')->default(0);
-            $table->string('sku')->nullable();
-            $table->unsignedBigInteger('shop_category_id');
-            $table->unsignedBigInteger('shop_discount_id');
+            $table->integer('quantity')->nullable()->default(0);
+            $table->string('sku')->nullable()->unique();
+            $table->unsignedBigInteger('shop_category_id')->nullable();
+            $table->unsignedBigInteger('shop_discount_id')->nullable();
+            $table->unsignedInteger('currency_id')->nullable();
             $table->foreign('shop_category_id')
                 ->references('id')
-                ->on('shop_categories');
+                ->on('shop_categories')->nullable();
             $table->timestamps();
         });
     }

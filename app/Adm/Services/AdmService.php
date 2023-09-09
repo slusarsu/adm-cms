@@ -26,4 +26,21 @@ class AdmService
         $rand = rand(1,count($images))-1 ?? 0;
         return '/'.$images[$rand] ?? '';
     }
+
+    public static function getTemplateName(string $viewFolderPath, string $defaultName, string $templateNeeded): string
+    {
+        $template = $templateNeeded;
+
+        $templates = self::getViewBladeFileNames($viewFolderPath);
+
+        if(!in_array($template, $templates)) {
+            $template = $defaultName;
+        }
+
+        if(!in_array($defaultName, $templates)) {
+            abort(404);
+        }
+
+        return $template;
+    }
 }

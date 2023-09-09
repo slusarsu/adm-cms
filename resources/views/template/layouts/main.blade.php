@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 @includeIf('template.parts.header.head-scripts')
-
+@livewireStyles
 <body>
 
 @includeIf('template.parts.header.header')
@@ -22,7 +22,7 @@
             @endif
 
             @empty($sidebar)
-                <div class="row no-gutters-lg">
+                <div class="row no-gutters-lg p-1">
                     @yield('content')
                 </div>
             @endempty
@@ -35,7 +35,7 @@
 @includeIf('template.parts.footer.footer-scripts')
 
 <x-adm-top-bar/>
-
+@livewireScripts
 </body>
 </html>
 

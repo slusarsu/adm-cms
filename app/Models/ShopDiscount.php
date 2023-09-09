@@ -32,7 +32,7 @@ class ShopDiscount extends Model
             ->where('created_at', '<=',Carbon::now());
     }
 
-    public function shopProducts(): HasMany
+    public function products(): HasMany
     {
         return $this->hasMany(ShopProduct::class);
     }

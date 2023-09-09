@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('shop_sessions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->decimal('total_amount', 10, 2);
+            $table->string('session_id')->nullable();
             $table->timestamps();
         });
     }

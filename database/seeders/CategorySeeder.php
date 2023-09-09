@@ -14,7 +14,7 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         Category::query()->create([
-            'post_type' => 'demo',
+            'type' => 'demo',
             'content_type' => 'post',
             'title' => 'Category 1',
             'slug' => 'category-1',
@@ -22,7 +22,7 @@ class CategorySeeder extends Seeder
         ]);
 
         Category::query()->create([
-            'post_type' => 'demo',
+            'type' => 'demo',
             'content_type' => 'post',
             'title' => 'Category 2',
             'slug' => 'category-2',
@@ -30,7 +30,7 @@ class CategorySeeder extends Seeder
         ]);
 
         Category::query()->create([
-            'post_type' => 'demo',
+            'type' => 'demo',
             'content_type' => 'post',
             'title' => 'Category 3',
             'slug' => 'category-3',
@@ -38,7 +38,7 @@ class CategorySeeder extends Seeder
         ]);
 
         Category::query()->create([
-            'post_type' => 'demo',
+            'type' => 'demo',
             'content_type' => 'post',
             'title' => 'Category 4',
             'slug' => 'category-4',
@@ -46,7 +46,7 @@ class CategorySeeder extends Seeder
         ]);
 
         Category::query()->create([
-            'post_type' => 'demo',
+            'type' => 'demo',
             'content_type' => 'post',
             'title' => 'Category 5',
             'slug' => 'category-5',

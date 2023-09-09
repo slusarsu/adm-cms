@@ -35,6 +35,14 @@ function globalPaginationCount(): int
     return !empty($settingCount) ? $settingCount : $configCount;
 }
 
+function shopPaginationCount(): int
+{
+    $settingCount = siteSetting()->get('shopPaginationCount');
+    $configCount = config('adm.paginationCount');
+
+    return !empty($settingCount) ? $settingCount : $configCount;
+}
+
 function admFormAction(string $hash): string
 {
     return route('adm-form', $hash);

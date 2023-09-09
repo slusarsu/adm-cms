@@ -3,19 +3,17 @@
 namespace App\Filament\Resources;
 
 use App\Adm\Actions\ActionAdmTranslationMapper;
-use App\Adm\Services\CurrencyService;
 use App\Adm\Services\CustomFieldService;
+use App\Adm\Services\shop\CurrencyService;
 use App\Filament\Resources\ShopProductResource\Pages;
 use App\Filament\Resources\ShopProductResource\RelationManagers;
-use App\Models\Category;
 use App\Models\ShopCategory;
 use App\Models\ShopProduct;
-use App\Models\Tag;
-use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
@@ -30,10 +28,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
@@ -102,6 +97,12 @@ class ShopProductResource extends Resource
                                 ->setConvertUrls(false)
                         ])->collapsible(),
 
+                    Section::make(trans('shop.characteristics'))
+                        ->schema([
+                            KeyValue::make('characteristics')
+                                ->label(trans('shop.characteristics')),
+                        ])->collapsible(),
+
                     Tabs::make('Heading')
                         ->tabs([
                             Tab::make(trans('dashboard.images'))
@@ -141,7 +142,7 @@ class ShopProductResource extends Resource
                         ->schema([
 
                             Select::make('currency_id')
-                                ->label(trans('dashboard.locale'))
+                                ->label(trans('shop.currency'))
                                 ->options(CurrencyService::getList()),
 
                             TextInput::make('price')
@@ -152,7 +153,8 @@ class ShopProductResource extends Resource
 
 
                             TextInput::make('sku')
-                                ->label(trans('shop.sku')),
+                                ->label(trans('shop.sku'))
+                                ->unique(self::getModel(), 'sku', ignoreRecord: true),
 
 
                             TextInput::make('quantity')
@@ -164,7 +166,7 @@ class ShopProductResource extends Resource
                                 ->label(trans('shop.discount'))
                                 ->preload()
                                 ->searchable()
-                                ->relationship('shopDiscount', 'title'),
+                                ->relationship('discount', 'title'),
                         ]),
 
                     Section::make(trans('dashboard.settings'))
@@ -174,7 +176,7 @@ class ShopProductResource extends Resource
                                 ->label(trans('dashboard.category'))
                                 ->preload()
                                 ->searchable()
-                                ->relationship('shopCategory', 'title')
+                                ->relationship('category', 'title')
                                 ->createOptionForm([
                                     TextInput::make('title')
                                         ->label(trans('dashboard.title'))
@@ -255,7 +257,7 @@ class ShopProductResource extends Resource
                     ->label(trans('dashboard.translations'))
                     ->description(fn ($record): string => $record->getTranslationLocales(), position: 'above'),
 
-                TextColumn::make('shopCategory.title')
+                TextColumn::make('category.title')
                     ->label(trans('dashboard.category')),
 
                 TextColumn::make('shopDiscount.title')

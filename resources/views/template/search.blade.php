@@ -6,7 +6,7 @@
     ])
 
 @section('content')
-    <div class="row">
+    <div class="row p-3">
         <div class="col-12">
             <div class="breadcrumbs mb-4">
                 <a href="{{homeLink()}}">Home</a>

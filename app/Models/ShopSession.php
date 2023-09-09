@@ -14,6 +14,7 @@ class ShopSession extends Model
     protected $fillable = [
         'user_id',
         'total_amount',
+        'session_id',
     ];
 
     public function user(): BelongsTo

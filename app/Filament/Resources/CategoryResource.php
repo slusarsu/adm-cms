@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Adm\Actions\ActionAdmTranslationMapper;
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
@@ -47,7 +48,7 @@ class CategoryResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('content_type', static::$contentType);
+        return parent::getEloquentQuery();
     }
 
     protected static function getNavigationLabel(): string
@@ -94,13 +95,11 @@ class CategoryResource extends Resource
                                 ->options(function($record) {
                                     if($record) {
                                         return Category::query()
-                                            ->where('content_type', static::$contentType)
-                                            ->where('post_type', $record->post_type)
+                                            ->where('type', $record->type)
                                             ->whereNot('id', $record->id)
                                             ->pluck('title', 'id');
                                     }
                                     return Category::query()
-                                        ->where('content_type', static::$contentType)
                                         ->pluck('title', 'id');
                                 })
                                 ->searchable(),
@@ -133,7 +132,7 @@ class CategoryResource extends Resource
 
                     Section::make(trans('dashboard.settings'))
                         ->schema([
-                            Select::make('post_type')
+                            Select::make('type')
                                 ->label(trans('dashboard.type'))
                                 ->options(function() {
                                     return config('adm.post_types');
@@ -184,11 +183,15 @@ class CategoryResource extends Resource
                 TextColumn::make('slug')
                     ->label(trans('dashboard.slug')),
 
-                TextColumn::make('post_type')
+                TextColumn::make('type')
                     ->label(trans('dashboard.post_type')),
 
                 TextColumn::make('locale')
                     ->label(trans('dashboard.locale')),
+
+                TextColumn::make('locales')
+                    ->label(trans('dashboard.translations'))
+                    ->description(fn ($record): string => $record->getTranslationLocales(), position: 'above'),
 
                 TextColumn::make('order')
                     ->label(trans('dashboard.order'))
@@ -208,7 +211,7 @@ class CategoryResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                SelectFilter::make('post_type')
+                SelectFilter::make('type')
                     ->label(trans('dashboard.post_type'))
                     ->options(config('adm.post_types')),
 
@@ -218,6 +221,7 @@ class CategoryResource extends Resource
                     ->toggle()
             ])
             ->actions([
+                ActionAdmTranslationMapper::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

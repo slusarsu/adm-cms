@@ -12,21 +12,9 @@ class PageService
         return AdmService::getViewBladeFileNames('template/pages');
     }
 
-    public static function getPageTemplateName(string $templateName): string
+    public static function getTemplateName(string $templateNeeded): string
     {
-        $template = $templateName;
-
-        $templates = self::getListOfPageTemplates();
-
-        if(!in_array($templateName, $templates)) {
-            $template = 'page';
-        }
-
-        if(!in_array('page', $templates)) {
-            abort(404);
-        }
-
-        return $template;
+        return AdmService::getTemplateName('template/pages', 'page', $templateNeeded);
     }
 
     public function getOneBySlug(string $slug): object|null

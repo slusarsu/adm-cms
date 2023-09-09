@@ -26,7 +26,7 @@ return new class extends Migration
             $table->boolean('is_enabled')->default(true);
             $table->string('seo_title')->nullable();
             $table->string('seo_text_keys')->nullable();
-            $table->string('post_type')->nullable();
+            $table->string('type')->nullable();
             $table->string('content_type')->nullable();
             $table->string('seo_description')->nullable();
             $table->string('locale')->nullable();

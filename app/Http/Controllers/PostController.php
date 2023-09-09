@@ -25,7 +25,7 @@ class PostController extends Controller
         $thumb = $post->thumb();
         $images = $post->images();
         $postType = $post->type ?? 'text';
-        $postTemplate = PostService::getPostTemplateName($postType);
+        $postTemplate = PostService::getTemplateName($postType);
 
         return view('template.posts.'.$postTemplate, compact('post', 'thumb', 'images'));
     }

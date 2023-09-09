@@ -16,7 +16,7 @@
                 </button>
             </div>
             <form action="{{route('adm-search')}}" class="search order-lg-3 order-md-2 order-3 ml-auto">
-                <input id="search-query" name="s" type="search" placeholder="Search..." autocomplete="off">
+                <input id="search-query" name="s" type="search" placeholder="Post Search..." autocomplete="off">
             </form>
             <!-- MENU -->
             <div class="collapse navbar-collapse text-center order-lg-2 order-4" id="navigation">
@@ -43,30 +43,8 @@
                         </li>
                     @endforeach
                 </ul>
-{{--                <div class="dropdown">--}}
-{{--                    <a class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">--}}
-{{--                        {{app()->getLocale()}}--}}
-{{--                    </a>--}}
-{{--                    <div class="dropdown-menu">--}}
-{{--                        @foreach(admLanguages() as $key => $item)--}}
-{{--                            <a class="dropdown-item" href="{{route('switch-locale', $key)}}">{{$item}}</a>--}}
-{{--                        @endforeach--}}
-{{--                    </div>--}}
-{{--                </div>--}}
 
-                <div class="dropdown">
-                    <a class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                        {{app()->getLocale()}}
-                    </a>
-                    <div class="dropdown-menu">
-                        @foreach(admLanguages() as $key => $item)
-                            @if($key == app()->getLocale())
-                                @continue(1)
-                            @endif
-                            <a class="dropdown-item" href="{{route('locale-switcher', admLocaleSwitcherParams($key))}}">{{$item}}</a>
-                        @endforeach
-                    </div>
-                </div>
+                <x-locale-switcher/>
 
             </div>
 

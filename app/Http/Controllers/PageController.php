@@ -36,7 +36,7 @@ class PageController extends Controller
         $thumb = $page->thumb();
         $images = $page->images();
         $template = $page->template ?? 'page';
-        $templateName = PageService::getPageTemplateName($template);
+        $templateName = PageService::getTemplateName($template);
 
         return view('template.pages.'.$templateName, compact('page', 'cf', 'thumb', 'images'));
     }

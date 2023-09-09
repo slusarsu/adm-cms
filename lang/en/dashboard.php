@@ -131,4 +131,6 @@ return [
     'products' => 'Products',
     'shop_session' => 'Shop Session',
     'shop_sessions' => 'Shop Sessions',
+    'clear_this_translation' => 'Clear this translation',
+    'clear_all_connected_translation' => 'Clear all connected translations',
 ];

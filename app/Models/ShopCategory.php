@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Adm\Traits\ModelHasAdmTranslation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,7 @@ use Illuminate\Support\Carbon;
 class ShopCategory extends Model
 {
     use HasFactory;
+    use ModelHasAdmTranslation;
 
     protected $fillable = [
         'title',
@@ -40,6 +42,12 @@ class ShopCategory extends Model
             ->where('created_at', '<=',Carbon::now());
     }
 
+    public function scopeLocale(Builder $query): void
+    {
+        $query->where('locale', null)
+            ->orWhere('locale', app()->getLocale());
+    }
+
     public function parent(): BelongsTo
     {
         return $this->belongsTo(ShopCategory::class, 'parent_id');
@@ -50,8 +58,40 @@ class ShopCategory extends Model
         return $this->hasMany(ShopCategory::class, 'parent_id');
     }
 
-    public function shopProducts(): HasMany
+    public function products(): HasMany
     {
         return $this->hasMany(ShopProduct::class);
+    }
+
+    public static function tree()
+    {
+        $allCategories = ShopCategory::query()->active()->get();
+
+        $rootCategories = $allCategories->whereNull('parent_id');
+
+        self::formatTree($rootCategories, $allCategories);
+
+        return $rootCategories;
+    }
+
+    private static function formatTree($rootCategories, $allCategories): void
+    {
+        foreach ($rootCategories as $category) {
+            $category->sub_cat = $allCategories->where('parent_id', $category->id)->values();
+
+            if ($category->sub_cat->isNotEmpty()) {
+                self::formatTree($category->sub_cat, $allCategories);
+            }
+        }
+    }
+
+    public function link(): string
+    {
+        return route('shop-category', $this->slug);
+    }
+
+    public function thumb()
+    {
+        return !empty($this->thumb) ?  '/storage/'.$this->thumb : $this->thumb;
     }
 }

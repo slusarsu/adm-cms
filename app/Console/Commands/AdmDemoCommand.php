@@ -34,6 +34,8 @@ class AdmDemoCommand extends Command
         Artisan::call('db:seed --class=PostSeeder');
         Artisan::call('db:seed --class=CategorySeeder');
         Artisan::call('db:seed --class=TagSeeder');
+        Artisan::call('db:seed --class=ShopCategorySeeder');
+        Artisan::call('db:seed --class=ShopProductSeeder');
         $this->info("-- data added to db");
         $this->call('optimize:clear');
     }

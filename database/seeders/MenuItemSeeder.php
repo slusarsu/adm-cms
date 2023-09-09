@@ -33,6 +33,12 @@ class MenuItemSeeder extends Seeder
                 'menu_id' => 1,
             ],
             [
+                'title' => 'Shop',
+                'link' => '/shop',
+                'order' => 4,
+                'menu_id' => 1,
+            ],
+            [
                 'title' => 'About',
                 'link' => '/about',
                 'order' => 1,

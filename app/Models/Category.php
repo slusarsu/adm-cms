@@ -30,7 +30,7 @@ class Category extends Model
         'content',
         'thumb',
         'is_enabled',
-        'post_type',
+        'type',
         'content_type',
         'locale',
     ];

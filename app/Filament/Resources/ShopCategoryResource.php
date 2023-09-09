@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Adm\Actions\ActionAdmTranslationMapper;
 use App\Filament\Resources\ShopCategoryResource\Pages;
 use App\Filament\Resources\ShopCategoryResource\RelationManagers;
 use App\Models\Category;
@@ -168,6 +169,10 @@ class ShopCategoryResource extends Resource
                 TextColumn::make('locale')
                     ->label(trans('dashboard.locale')),
 
+                TextColumn::make('locales')
+                    ->label(trans('dashboard.translations'))
+                    ->description(fn ($record): string => $record->getTranslationLocales(), position: 'above'),
+
                 TextColumn::make('order')
                     ->label(trans('dashboard.order'))
                     ->sortable(),
@@ -192,6 +197,7 @@ class ShopCategoryResource extends Resource
                     ->toggle()
             ])
             ->actions([
+                ActionAdmTranslationMapper::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

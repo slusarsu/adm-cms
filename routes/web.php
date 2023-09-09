@@ -5,6 +5,12 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ShopCartController;
+use App\Http\Controllers\ShopCategoryController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ShopCustomerController;
+use App\Http\Controllers\ShopOrderController;
+use App\Http\Controllers\ShopProductController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TranslationController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('template.index');
 })->name('home');
+
 Route::get('/switch-locale/{locale}', [TranslationController::class, 'changeLocale'])->name('switch-locale');
 Route::get('/locale-switcher', [TranslationController::class, 'localeSwitcher'])->name('locale-switcher');
 Route::post('/adm-form/{link_hash}', [AdmFormController::class, 'form'])->name('adm-form');
@@ -30,8 +37,22 @@ Route::get('/adm-search', [PageController::class, 'search'])->name('adm-search')
 Route::get('/add-comment', [CommentController::class, 'store'])->name('add-comment');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
 
+Route::prefix('shop')->group(function () {
+    Route::get('/', [ShopController::class, 'index'])->name('shop-index');
+    Route::get('/product/{slug}', [ShopProductController::class, 'show'])->name('shop-product');
+    Route::get('/order', [ShopOrderController::class, 'index'])->name('shop-order');
+    Route::get('/cart', [ShopCartController::class, 'index'])->name('shop-cart');
+    Route::get('/customer', [ShopCustomerController::class, 'index'])->name('shop-customer');
+    Route::get('/categories', [ShopCategoryController::class, 'index'])->name('shop-categories');
+    Route::get('/category/{slug}', [ShopCategoryController::class, 'show'])->name('shop-category');
+});
+
 Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('{slug}', [PageController::class, 'show'])->name('page');
 Route::get('post/{slug}', [PostController::class, 'show'])->name('post');
 Route::get('tag/{slug}', [TagController::class, 'show'])->name('tag');
 Route::get('category/{slug}', [CategoryController::class, 'show'])->name('category');
+
+
+
+

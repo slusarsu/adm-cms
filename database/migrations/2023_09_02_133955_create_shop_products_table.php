@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('is_enabled')->default(true);
             $table->bigInteger('views')->nullable();
             $table->json('custom_fields')->nullable();
+            $table->json('characteristics')->nullable();
             $table->string('locale')->nullable();
             $table->string('seo_title')->nullable();
             $table->string('seo_text_keys')->nullable();
@@ -37,6 +38,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('shop_categories')->nullable();
             $table->timestamps();
+            $table->string('type')->nullable()->default('product');
         });
     }
 

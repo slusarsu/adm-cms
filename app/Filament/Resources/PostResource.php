@@ -166,7 +166,7 @@ class PostResource extends Resource
                                         ->unique(Category::class, 'slug', ignoreRecord: true)
                                         ->reactive(),
 
-                                    Select::make('post_type')
+                                    Select::make('type')
                                         ->label(trans('dashboard.type'))
                                         ->options(function() {
                                             return config('adm.post_types');
@@ -178,14 +178,12 @@ class PostResource extends Resource
                                     Select::make('parent_id')
                                         ->label(trans('dashboard.parent'))
                                         ->options(function(callable $get) {
-                                            if($get('post_type')) {
+                                            if($get('type')) {
                                                 return Category::query()
-                                                    ->where('content_type', static::$contentType)
-                                                    ->where('post_type', $get('post_type'))
+                                                    ->where('type', $get('type'))
                                                     ->pluck('title', 'id');
                                             }
                                             return Category::query()
-                                                ->where('content_type', static::$contentType)
                                                 ->pluck('title', 'id');
                                         })
                                         ->searchable(),

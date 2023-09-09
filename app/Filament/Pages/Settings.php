@@ -79,6 +79,7 @@ use \Illuminate\Contracts\Support\Htmlable;
             'default_language' => '',
             'translation_enabled' => '',
             'values' => '',
+            'shopPaginationCount' => '',
         ];
     }
 
@@ -172,6 +173,13 @@ use \Illuminate\Contracts\Support\Htmlable;
                                 ->label(trans('dashboard.translation_enabled'))
                                 ->default(true),
                         ]),
+                    Tab::make(trans('shop.shop'))
+                        ->schema([
+                            TextInput::make('shopPaginationCount')
+                                ->label(trans('dashboard.pagination_count'))
+                                ->integer(true)
+                                ->default(12),
+                        ]),
                     Tab::make(trans('dashboard.customization'))
                         ->schema([
                             CodeField::make('customHeaderCode')
@@ -196,6 +204,7 @@ use \Illuminate\Contracts\Support\Htmlable;
                                 ->label(trans('dashboard.custom_values'))
                                 ->helperText('add "example_text_key" and "Example text value"')
                         ]),
+
                 ]),
         ];
 

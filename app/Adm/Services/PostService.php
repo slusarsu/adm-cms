@@ -8,26 +8,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class PostService
 {
-    public static function getListOfPostTemplates(): array
+    public static function getTemplateName(string $type): string
     {
-        return AdmService::getViewBladeFileNames('template/posts');
-    }
-
-    public static function getPostTemplateName(string $type): string
-    {
-        $template = 'post-'.$type;
-
-        $templates = self::getListOfPostTemplates();
-
-        if(!in_array($template, $templates)) {
-            $template = 'post';
-        }
-
-        if(!in_array('post', $templates)) {
-            abort(404);
-        }
-
-        return $template;
+        return AdmService::getTemplateName('template/posts', 'post', $type);
     }
 
     public function getAll(?int $paginationCount = 10): LengthAwarePaginator

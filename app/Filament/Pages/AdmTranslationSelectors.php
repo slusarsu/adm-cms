@@ -8,11 +8,14 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Notifications\Notification;
+use Filament\Pages\Actions\Action;
+use Filament\Pages\Actions\ActionGroup;
 use Filament\Pages\Page;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 
 class AdmTranslationSelectors extends Page
@@ -38,8 +41,11 @@ class AdmTranslationSelectors extends Page
     public function mount(Request $request): void
     {
         $this->locales = admLanguages();
+
         $this->modelClassName = $request->model_type;
+
         $this->model_type = "App\Models\\".$this->modelClassName;
+
         $this->record = $this->model_type::query()
             ->where('id', $request->record)
             ->with('translation')
@@ -52,6 +58,9 @@ class AdmTranslationSelectors extends Page
             $this->hash = $this->record->translation->hash;
             $this->allTranslations = $this->record->translations();
             $this->formFillRecords();
+        } else {
+            $records[$this->record->locale] = $this->record->id;
+            $this->form->fill($records);
         }
     }
 
@@ -59,7 +68,7 @@ class AdmTranslationSelectors extends Page
     {
         $records =  $this->model_type::query()->where('locale', '!=', $this->record->lang);
 
-        if($this->model_type == 'App\Models\Post') {
+        if(!empty($this->record->type)) {
             $records = $records->where('type', $this->record->type);
         }
 
@@ -101,6 +110,15 @@ class AdmTranslationSelectors extends Page
         }
 
         return $formSelectors;
+    }
+
+    private function getDefaultRecord($locale)
+    {
+        if($locale !== $this->record->locale) {
+            return null;
+        }
+
+        return $this->record->id;
     }
 
     public function removeAllOldRelations($ids): void
@@ -154,5 +172,51 @@ class AdmTranslationSelectors extends Page
             Section::make('Map Translations')->schema($this->prepareSelectors())
         ];
 
+    }
+
+    protected function getActions(): array
+    {
+        return [
+
+            Action::make(trans('dashboard.clear_this_translation'))
+                ->action(function () {
+                    AdmTranslation::query()
+                        ->where('model_type', $this->model_type)
+                        ->where('model_id', $this->record->id)
+                        ->delete();
+
+                    Notification::make()
+                        ->title('Successfully')
+                        ->success()
+                        ->send();
+                })
+                ->requiresConfirmation()
+                ->color('danger'),
+
+
+            Action::make(trans('dashboard.clear_all_connected_translation'))
+                ->action(function () {
+                    if(empty($this->record->translation->hash)){
+                        Notification::make()
+                            ->title('Not Found')
+                            ->danger()
+                            ->send();
+
+                        return;
+                    }
+
+                    AdmTranslation::query()
+                        ->where('model_type', $this->model_type)
+                        ->where('hash', $this->record->translation->hash)
+                        ->delete();
+
+                    Notification::make()
+                        ->title('Successfully')
+                        ->success()
+                        ->send();
+                })
+                ->requiresConfirmation()
+                ->color('danger'),
+        ];
     }
 }

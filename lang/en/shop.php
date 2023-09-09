@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'shop' => 'Shop',
     'categories' => 'Categories',
     'category' => 'Category',
     'customer' => 'Customer',
@@ -38,4 +39,9 @@ return [
     'name' => 'Name',
     'symbol' => 'Symbol',
     'product_price' => 'Product Price',
+    'cart' => 'Cart',
+    'description' => 'Description',
+    'characteristic' => 'Characteristic',
+    'characteristics' => 'Characteristics',
+    'add_to_cart' => 'Add to cart',
 ];

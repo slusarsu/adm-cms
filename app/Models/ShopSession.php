@@ -22,8 +22,8 @@ class ShopSession extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function shopCarts(): HasMany
+    public function carts(): HasMany
     {
-        return $this->hasMany(ShopCart::class);
+        return $this->hasMany(ShopCart::class)->orderByDesc('id');
     }
 }

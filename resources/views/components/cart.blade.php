@@ -1,5 +1,10 @@
-<button type="button" class="btn btn-primary w-100 rounded" data-toggle="modal" data-target="#shopCart">
-    <i class="bi bi-cart"></i> {{trans('shop.cart')}} <span class="badge badge-light">4</span>
+<button
+        wire:click="cartLoad"
+        type="button"
+        class="btn btn-primary w-100 rounded"
+        data-toggle="modal" data-target="#shopCart"
+>
+    <i class="bi bi-cart"></i> {{trans('shop.cart')}} <span class="badge badge-light">{{$count}}</span>
 </button>
 
 <!-- Modal -->
@@ -13,7 +18,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                @foreach($items as $item)
+                    {{$item->product}}
+                @endforeach
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

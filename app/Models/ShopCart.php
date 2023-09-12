@@ -16,13 +16,13 @@ class ShopCart extends Model
         'quantity',
     ];
 
-    public function shopSession(): BelongsTo
+    public function session(): BelongsTo
     {
-        return $this->belongsTo(ShopSession::class);
+        return $this->belongsTo(ShopSession::class, 'shop_session_id', 'id');
     }
 
-    public function shopProduct(): BelongsTo
+    public function product(): BelongsTo
     {
-        return $this->belongsTo(ShopProduct::class);
+        return $this->belongsTo(ShopProduct::class, 'shop_product_id', 'id');
     }
 }

@@ -2,7 +2,7 @@
     'items' => []
 ])
 @if(!empty($items))
-    @dd(session()->getId());
+{{--    @dd(session()->getId());--}}
     <div class="row">
         <div class="col-12">
             <form action="{{route('adm-search')}}">
@@ -45,7 +45,7 @@
                         <p class="card-text">{!! $item->short !!}</p>
                     </div>
 
-                    <livewire:add-to-cart/>
+                    <livewire:add-to-cart :productId="$item->id"/>
 
                 </article>
             </div>

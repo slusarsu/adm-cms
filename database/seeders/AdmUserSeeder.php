@@ -22,6 +22,5 @@ class AdmUserSeeder extends Seeder
         $role = Role::query()->where('name', RoleEnum::ADMIN->value)->first();
 
         $user->assignRole($role);
-        $user->shopCustomer()->create();
     }
 }

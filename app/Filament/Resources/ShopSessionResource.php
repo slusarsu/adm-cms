@@ -38,6 +38,11 @@ class ShopSessionResource extends Resource
         return trans('shop.session');
     }
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return siteSetting()->get('shopEnabled');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

@@ -11,18 +11,15 @@ class ShopCart extends Model
     use HasFactory;
 
     protected $fillable = [
-        'shop_session_id',
-        'shop_product_id',
+        'user_id',
+        'session_id',
+        'product_id',
+        'is_enabled',
         'quantity',
     ];
 
-    public function session(): BelongsTo
-    {
-        return $this->belongsTo(ShopSession::class, 'shop_session_id', 'id');
-    }
-
     public function product(): BelongsTo
     {
-        return $this->belongsTo(ShopProduct::class, 'shop_product_id', 'id');
+        return $this->belongsTo(ShopProduct::class, 'product_id', 'id');
     }
 }

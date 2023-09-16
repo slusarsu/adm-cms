@@ -17,9 +17,5 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@admin.com',
         ]);
-
-        $customer = ShopCustomer::query()->create([
-            'user_id' => $user->id
-        ]);
     }
 }

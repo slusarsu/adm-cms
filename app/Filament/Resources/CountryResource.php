@@ -42,6 +42,11 @@ class CountryResource extends Resource
         return trans('shop.country');
     }
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return siteSetting()->get('shopEnabled');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use AllowDynamicProperties;
-use App\Models\ShopCart;
-use App\Models\ShopProduct;
-use App\Models\ShopSession;
 use Livewire\Component;
+use AllowDynamicProperties;
+use App\Adm\Services\shop\ShopCartService;
 
 #[AllowDynamicProperties] class AddToCart extends Component
 {
@@ -19,31 +17,7 @@ use Livewire\Component;
 
     public function addToCart()
     {
-        $sessionId = session()->getId();
-        $userId = auth()->id() ?? null;
-        $shopSession = ShopSession::query()->firstOrCreate([
-            'session_id' => $sessionId,
-        ],[
-            'user_id' => $userId,
-        ]);
-
-        $cartItem = ShopCart::query()
-            ->where('shop_session_id', $sessionId)
-            ->where('shop_product_id', $this->productId)->first();
-
-        if($cartItem) {
-            $quantity = $cartItem->quantity + $this->quantity;
-            $cartItem->till([
-                'quantity' => $quantity
-            ]);
-            $cartItem->save();
-        } else {
-            $cartItem = ShopCart::query()->updateOrCreate([
-                'shop_session_id' => $shopSession->id,
-                'shop_product_id' => $this->productId,
-                'quantity' => $this->quantity,
-            ]);
-        }
+        $cartItem = ShopCartService::addToCart($this->productId, $this->quantity);
 
         $this->emit('cart-reload');
 

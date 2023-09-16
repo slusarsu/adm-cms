@@ -18,6 +18,7 @@ class CurrencySeeder extends Seeder
                 'code' => 'UAH',
                 'name' => 'Ukrainian Hryvnia',
                 'symbol' => '₴',
+                'is_enabled' => 1
             ],
             [
                 'code' => 'USD',

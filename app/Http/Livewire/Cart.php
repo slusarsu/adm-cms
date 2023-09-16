@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use AllowDynamicProperties;
+use App\Adm\Services\shop\ShopCartService;
 use App\Models\ShopCart;
 use App\Models\ShopSession;
 use Livewire\Component;
@@ -20,10 +21,11 @@ class Cart extends Component
 
     public function load()
     {
-        $sessionId = session()->getId();
-        $shopSession = ShopSession::query()->where('session_id', $sessionId)->with('carts.product')->first();
-        $this->items = $shopSession->carts;
-        $this->count = $this->items->count();
+        $carts = resolve(ShopCartService::class)->getCartItems();
+        $this->items = resolve(ShopCartService::class)->getProductsFromCartItems($carts);
+
+        $this->count = $this->items->sum('quantity_items');
+
     }
     public function render()
     {

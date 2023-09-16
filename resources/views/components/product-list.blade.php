@@ -45,6 +45,10 @@
                         <p class="card-text">{!! $item->short !!}</p>
                     </div>
 
+                    <div>
+                        <b>PRICE: {{$item->price}}</b>
+                    </div>
+
                     <livewire:add-to-cart :productId="$item->id"/>
 
                 </article>

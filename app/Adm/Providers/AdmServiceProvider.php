@@ -24,19 +24,27 @@ class AdmServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../Resources', 'adm');
         $site = siteSettingsAll();
+
         View::share('site', $site);
+
         Paginator::useBootstrap();
-        Filament::serving(function () {
+
+        $adminMenu = [
+            'Content',
+            'Tools',
+            'Authentication',
+            'System',
+        ];
+
+        if(siteSetting()->get('shopEnabled')) {
+            $adminMenu[] = 'shop';
+        }
+
+        Filament::serving(function () use ($adminMenu) {
             // Using Vite
             Filament::registerViteTheme('resources/css/filament.css');
 
-            Filament::registerNavigationGroups([
-                'Content',
-                'Tools',
-                'Shop',
-                'Authentication',
-                'System',
-            ]);
+            Filament::registerNavigationGroups($adminMenu);
 
         });
 

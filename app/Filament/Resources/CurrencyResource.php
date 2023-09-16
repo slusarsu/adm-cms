@@ -43,6 +43,11 @@ class CurrencyResource extends Resource
         return trans('shop.currency');
     }
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return siteSetting()->get('shopEnabled');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

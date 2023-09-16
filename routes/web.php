@@ -37,15 +37,18 @@ Route::get('/adm-search', [PageController::class, 'search'])->name('adm-search')
 Route::get('/add-comment', [CommentController::class, 'store'])->name('add-comment');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
 
-Route::prefix('shop')->group(function () {
-    Route::get('/', [ShopController::class, 'index'])->name('shop-index');
-    Route::get('/product/{slug}', [ShopProductController::class, 'show'])->name('shop-product');
-    Route::get('/order', [ShopOrderController::class, 'index'])->name('shop-order');
-    Route::get('/cart', [ShopCartController::class, 'index'])->name('shop-cart');
-    Route::get('/customer', [ShopCustomerController::class, 'index'])->name('shop-customer');
-    Route::get('/categories', [ShopCategoryController::class, 'index'])->name('shop-categories');
-    Route::get('/category/{slug}', [ShopCategoryController::class, 'show'])->name('shop-category');
-});
+if(siteSetting()->get('shopEnabled')) {
+    Route::prefix('shop')->group(function () {
+        Route::get('/', [ShopController::class, 'index'])->name('shop-index');
+        Route::get('/product/{slug}', [ShopProductController::class, 'show'])->name('shop-product');
+        Route::get('/order', [ShopOrderController::class, 'index'])->name('shop-order');
+        Route::get('/cart', [ShopCartController::class, 'index'])->name('shop-cart');
+        Route::get('/customer', [ShopCustomerController::class, 'index'])->name('shop-customer');
+        Route::get('/categories', [ShopCategoryController::class, 'index'])->name('shop-categories');
+        Route::get('/category/{slug}', [ShopCategoryController::class, 'show'])->name('shop-category');
+    });
+}
+
 
 Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('{slug}', [PageController::class, 'show'])->name('page');

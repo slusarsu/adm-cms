@@ -80,6 +80,7 @@ use \Illuminate\Contracts\Support\Htmlable;
             'translation_enabled' => '',
             'values' => '',
             'shopPaginationCount' => '',
+            'shopEnabled' => '',
         ];
     }
 
@@ -179,6 +180,10 @@ use \Illuminate\Contracts\Support\Htmlable;
                                 ->label(trans('dashboard.pagination_count'))
                                 ->integer(true)
                                 ->default(12),
+
+                            Toggle::make('shopEnabled')
+                                ->label(trans('dashboard.is_enabled'))
+                                ->default(true),
                         ]),
                     Tab::make(trans('dashboard.customization'))
                         ->schema([

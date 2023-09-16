@@ -22,8 +22,6 @@ class DatabaseSeeder extends Seeder
         app()->call(AdmFormSeeder::class);
         app()->call(MenuSeeder::class);
         app()->call(MenuItemSeeder::class);
-        app()->call(CurrencySeeder::class);
-        app()->call(CountrySeeder::class);
     }
 
     public function sleep()

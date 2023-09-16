@@ -34,6 +34,7 @@ class ShopProductFactory extends Factory
             'sku' => Str::random(5),
             'quantity' => rand(5,400),
             'shop_category_id' => rand(1,5),
+            'currency_id' => 1
         ];
     }
 }

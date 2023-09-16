@@ -46,6 +46,11 @@ class ShopOrderResource extends Resource
             ]);
     }
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return siteSetting()->get('shopEnabled');
+    }
+
     public static function table(Table $table): Table
     {
         return $table

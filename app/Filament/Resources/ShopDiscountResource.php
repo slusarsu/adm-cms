@@ -57,6 +57,11 @@ class ShopDiscountResource extends Resource
         return trans('shop.discount');
     }
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return siteSetting()->get('shopEnabled');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

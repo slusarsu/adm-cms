@@ -60,6 +60,11 @@ class ShopCustomerResource extends Resource
         return parent::getEloquentQuery()->with(['user', 'country']);
     }
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return siteSetting()->get('shopEnabled');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

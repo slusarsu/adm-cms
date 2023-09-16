@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ShopCategory;
+use App\Models\ShopCustomer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +14,10 @@ class ShopCategorySeeder extends Seeder
      */
     public function run(): void
     {
+        $customer = ShopCustomer::query()->create([
+            'user_id' => 1
+        ]);
+
         ShopCategory::query()->create([
             'title' => 'Category 1',
             'slug' => 'category-1',
